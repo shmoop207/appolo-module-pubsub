@@ -1,9 +1,11 @@
 {
   "name": "@appolo/pubsub",
   "version": "0.0.10",
-  "description": "",
-  "private": false,
-  "keywords": [],
+  "description": "appolo pubsub module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": ["appolo","pubsub"],
   "main": "index.js",
   "dependencies": {
     "@appolo/logger": "0.0.14",
@@ -30,10 +32,10 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/shmoop207/appolo-module-pubsub.git"
   },
   "author": {
     "name": "roman svichar"
   },
-  "license": ""
+  "license": "MIT"
 }
