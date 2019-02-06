@@ -1,10 +1,10 @@
-import {module, Module} from 'appolo';
+import {module, Module,Util} from 'appolo';
 import {IOptions} from "./src/IOptions";
 import {ILogger} from '@appolo/logger';
 
 import {PubSubProvider} from "./src/pubSubProvider";
 import * as _ from "lodash";
-import {MessagePublisherSymbol} from "./src/decorators";
+import {MessagePublisherSymbol, PublisherMetadata} from "./src/decorators";
 import {RedisProvider} from "@appolo/redis/index";
 
 @module()
@@ -25,19 +25,15 @@ export class PubSubModule extends Module<IOptions> {
 
     protected beforeInitialize() {
 
-        _.forEach(this.app.parent.exported, (item => this._createPublishers(item.fn)));
+        let publisherMeta = Util.findAllReflectData<PublisherMetadata>(MessagePublisherSymbol,this.app.parent.exported);
+
+        _.forEach(publisherMeta, (item => this._createPublishers(item)));
 
     }
 
-    private _createPublishers(fn: Function) {
+    private _createPublishers(item:{fn: Function,metaData:PublisherMetadata}) {
 
-        let publishers = Reflect.getOwnMetadata(MessagePublisherSymbol, fn);
-
-        if (!publishers) {
-            return;
-        }
-
-        _.forEach(publishers, item => this._createPublisher(fn, item));
+        _.forEach(item.metaData, publisher => this._createPublisher(item.fn, publisher));
     }
 
     private async _createPublisher(fn: Function, item: { propertyKey: string, eventName: string }) {

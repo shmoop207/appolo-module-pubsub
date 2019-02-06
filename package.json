@@ -5,12 +5,15 @@
   "publishConfig": {
     "access": "public"
   },
-  "keywords": ["appolo","pubsub"],
+  "keywords": [
+    "appolo",
+    "pubsub"
+  ],
   "main": "index.js",
   "dependencies": {
     "@appolo/logger": "0.0.14",
     "@appolo/redis": "0.0.1",
-    "appolo": "^6.0.55",
+    "appolo": "^6.0.59",
     "bluebird": "^3.5.3",
     "ioredis": "^4.5.1",
     "lodash": "^4.17.11"

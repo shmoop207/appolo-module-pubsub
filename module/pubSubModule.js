@@ -17,14 +17,11 @@ let PubSubModule = class PubSubModule extends appolo_1.Module {
         return [{ id: this.moduleOptions.id, type: pubSubProvider_1.PubSubProvider }];
     }
     beforeInitialize() {
-        _.forEach(this.app.parent.exported, (item => this._createPublishers(item.fn)));
+        let publisherMeta = appolo_1.Util.findAllReflectData(decorators_1.MessagePublisherSymbol, this.app.parent.exported);
+        _.forEach(publisherMeta, (item => this._createPublishers(item)));
     }
-    _createPublishers(fn) {
-        let publishers = Reflect.getOwnMetadata(decorators_1.MessagePublisherSymbol, fn);
-        if (!publishers) {
-            return;
-        }
-        _.forEach(publishers, item => this._createPublisher(fn, item));
+    _createPublishers(item) {
+        _.forEach(item.metaData, publisher => this._createPublisher(item.fn, publisher));
     }
     async _createPublisher(fn, item) {
         let old = fn.prototype[item.propertyKey];

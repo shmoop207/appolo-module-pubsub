@@ -5,7 +5,7 @@ export const MessageHandlerSymbol = Symbol("MessageHandler");
 export const MessagePublisherSymbol = Symbol("MessagePublisher");
 
 
-export interface HandlerMetadataOptions {
+export interface HandlerMetadata {
     [index: string]: {
         eventNames: string[]
         propertyKey: string,
@@ -13,7 +13,7 @@ export interface HandlerMetadataOptions {
     }
 }
 
-export interface PublisherMetadataOptions {
+export interface PublisherMetadata {
     [index: string]: {
         eventName: string
         propertyKey: string,
@@ -25,7 +25,7 @@ export interface PublisherMetadataOptions {
 export function handler(eventName: string) {
     return function (target: any, propertyKey: string, descriptor?: PropertyDescriptor) {
 
-        let data = Util.getReflectData<HandlerMetadataOptions>(MessageHandlerSymbol, target.constructor, {});
+        let data = Util.getReflectData<HandlerMetadata>(MessageHandlerSymbol, target.constructor, {});
 
         if (!data[propertyKey]) {
             data[propertyKey] = {
@@ -43,7 +43,7 @@ export function handler(eventName: string) {
 export function publisher(eventName: string) {
     return function (target: any, propertyKey: string, descriptor?: PropertyDescriptor) {
 
-        let data = Util.getReflectData<PublisherMetadataOptions>(MessagePublisherSymbol, target.constructor, {});
+        let data = Util.getReflectData<PublisherMetadata>(MessagePublisherSymbol, target.constructor, {});
 
         if (!data[propertyKey]) {
             data[propertyKey] = {
