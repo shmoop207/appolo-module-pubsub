@@ -1,6 +1,6 @@
 {
   "name": "@appolo/pubsub",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "appolo pubsub module",
   "publishConfig": {
     "access": "public"
