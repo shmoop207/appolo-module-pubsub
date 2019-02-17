@@ -1,5 +1,5 @@
 "use strict";
-import {define, Define, IApp, initMethod, inject, Injector, singleton} from 'appolo'
+import {define, Define, IApp, inject, Injector, singleton} from 'appolo'
 import * as _ from "lodash";
 import {MessageHandlerSymbol,} from "./decorators";
 import {RedisProvider} from "@appolo/redis/index";
@@ -46,7 +46,7 @@ export class HandlersManager {
 
     private _handleMessage(id: string, propertyKey: string, channel: string, msg: any) {
         try {
-            let handler = this.injector.get(id);
+            let handler = this.injector.parent.get(id);
 
             handler[propertyKey](msg)
 

@@ -1,11 +1,10 @@
-import {module, Module,Util} from 'appolo';
+import {module, Module, Util} from 'appolo';
 import {IOptions} from "./src/IOptions";
 import {ILogger} from '@appolo/logger';
 
 import {PubSubProvider} from "./src/pubSubProvider";
 import * as _ from "lodash";
 import {MessagePublisherSymbol, PublisherMetadata} from "./src/decorators";
-import {RedisProvider} from "@appolo/redis/index";
 
 @module()
 export class PubSubModule extends Module<IOptions> {
@@ -25,13 +24,13 @@ export class PubSubModule extends Module<IOptions> {
 
     protected beforeInitialize() {
 
-        let publisherMeta = Util.findAllReflectData<PublisherMetadata>(MessagePublisherSymbol,this.app.parent.exported);
+        let publisherMeta = Util.findAllReflectData<PublisherMetadata>(MessagePublisherSymbol, this.app.parent.exported);
 
         _.forEach(publisherMeta, (item => this._createPublishers(item)));
 
     }
 
-    private _createPublishers(item:{fn: Function,metaData:PublisherMetadata}) {
+    private _createPublishers(item: { fn: Function, metaData: PublisherMetadata }) {
 
         _.forEach(item.metaData, publisher => this._createPublisher(item.fn, publisher));
     }
@@ -46,9 +45,9 @@ export class PubSubModule extends Module<IOptions> {
             try {
                 let result = await old.apply(this, arguments);
 
-                let redis = $self.app.injector.get<RedisProvider>("redisPub").redis;
+                let provider = $self.app.injector.get<PubSubProvider>(PubSubProvider);
 
-                await redis.publish(item.eventName, JSON.stringify(result));
+                await provider.publish(item.eventName, result);
 
                 return result
 
@@ -57,7 +56,7 @@ export class PubSubModule extends Module<IOptions> {
 
                 logger.error(`failed to publish ${item.eventName}`, {e});
 
-                return null;
+                throw e;
             }
 
 

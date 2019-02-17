@@ -29,14 +29,14 @@ let PubSubModule = class PubSubModule extends appolo_1.Module {
         fn.prototype[item.propertyKey] = async function () {
             try {
                 let result = await old.apply(this, arguments);
-                let redis = $self.app.injector.get("redisPub").redis;
-                await redis.publish(item.eventName, JSON.stringify(result));
+                let provider = $self.app.injector.get(pubSubProvider_1.PubSubProvider);
+                await provider.publish(item.eventName, result);
                 return result;
             }
             catch (e) {
                 let logger = $self.app.injector.get("logger");
                 logger.error(`failed to publish ${item.eventName}`, { e });
-                return null;
+                throw e;
             }
         };
     }

@@ -27,7 +27,7 @@ let HandlersManager = class HandlersManager {
     }
     _handleMessage(id, propertyKey, channel, msg) {
         try {
-            let handler = this.injector.get(id);
+            let handler = this.injector.parent.get(id);
             handler[propertyKey](msg);
         }
         catch (e) {
