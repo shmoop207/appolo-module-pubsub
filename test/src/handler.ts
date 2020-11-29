@@ -1,4 +1,4 @@
-import {alias, define,singleton} from 'appolo'
+import {alias, define,singleton} from '@appolo/inject'
 import { handler } from "../../index";
 
 @define()

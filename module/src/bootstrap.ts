@@ -1,4 +1,5 @@
-import {bootstrap, define, IBootstrap, inject} from 'appolo'
+import { define, inject} from '@appolo/inject'
+import { IBootstrap,bootstrap } from '@appolo/engine'
 import {PubSubProvider} from "./pubSubProvider";
 import {IOptions} from "./IOptions";
 

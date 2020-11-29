@@ -1,8 +1,7 @@
 import "reflect-metadata";
-import {Util} from 'appolo';
+import {Util} from '@appolo/utils';
 
 export const MessageHandlerSymbol = Symbol("MessageHandler");
-export const MessagePublisherSymbol = Symbol("MessagePublisher");
 
 
 export interface HandlerMetadata {
@@ -25,7 +24,7 @@ export interface PublisherMetadata {
 export function handler(eventName: string) {
     return function (target: any, propertyKey: string, descriptor?: PropertyDescriptor) {
 
-        let data = Util.getReflectData<HandlerMetadata>(MessageHandlerSymbol, target.constructor, {});
+        let data = Util.Reflector.getFnMetadata<HandlerMetadata>(MessageHandlerSymbol, target.constructor, {});
 
         if (!data[propertyKey]) {
             data[propertyKey] = {
@@ -40,20 +39,7 @@ export function handler(eventName: string) {
     }
 }
 
-export function publisher(eventName: string) {
-    return function (target: any, propertyKey: string, descriptor?: PropertyDescriptor) {
 
-        let data = Util.getReflectData<PublisherMetadata>(MessagePublisherSymbol, target.constructor, {});
-
-        if (!data[propertyKey]) {
-            data[propertyKey] = {
-                eventName,
-                propertyKey,
-                descriptor
-            };
-        }
-    }
-}
 
 
 

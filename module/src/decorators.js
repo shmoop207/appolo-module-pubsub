@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.handler = exports.MessageHandlerSymbol = void 0;
 require("reflect-metadata");
-const appolo_1 = require("appolo");
+const utils_1 = require("@appolo/utils");
 exports.MessageHandlerSymbol = Symbol("MessageHandler");
-exports.MessagePublisherSymbol = Symbol("MessagePublisher");
 function handler(eventName) {
     return function (target, propertyKey, descriptor) {
-        let data = appolo_1.Util.getReflectData(exports.MessageHandlerSymbol, target.constructor, {});
+        let data = utils_1.Util.Reflector.getFnMetadata(exports.MessageHandlerSymbol, target.constructor, {});
         if (!data[propertyKey]) {
             data[propertyKey] = {
                 eventNames: [],
@@ -18,17 +18,4 @@ function handler(eventName) {
     };
 }
 exports.handler = handler;
-function publisher(eventName) {
-    return function (target, propertyKey, descriptor) {
-        let data = appolo_1.Util.getReflectData(exports.MessagePublisherSymbol, target.constructor, {});
-        if (!data[propertyKey]) {
-            data[propertyKey] = {
-                eventName,
-                propertyKey,
-                descriptor
-            };
-        }
-    };
-}
-exports.publisher = publisher;
 //# sourceMappingURL=decorators.js.map

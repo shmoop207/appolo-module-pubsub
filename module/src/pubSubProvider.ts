@@ -1,5 +1,5 @@
 "use strict";
-import {define, inject, singleton} from 'appolo'
+import {define, inject, singleton} from '@appolo/inject'
 import {RedisProvider} from '@appolo/redis';
 import {HandlersManager} from "./handlersManager";
 

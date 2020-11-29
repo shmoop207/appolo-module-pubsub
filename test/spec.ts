@@ -1,9 +1,9 @@
-import { createApp, App } from 'appolo'
+import { createApp, App } from '@appolo/core'
 import chai = require('chai');
 import    sinonChai = require("sinon-chai");
-import * as Q from 'bluebird'
 import {Handler} from "./src/handler";
 import {PubSubModule} from "../index";
+import {Promises} from "@appolo/utils";
 import {Publisher} from "./src/publisher";
 
 
@@ -23,7 +23,7 @@ describe("PubSub Spec", function () {
 
          app = createApp({root: __dirname, environment: "production", port: 8181});
 
-        await app.module(new PubSubModule({connection: process.env.REDIS}));
+         app.module.use(PubSubModule.for({connection: process.env.REDIS}));
 
         await app.launch();
 
@@ -34,7 +34,7 @@ describe("PubSub Spec", function () {
 
          await app.injector.get<Publisher>(Publisher).publish({working:"bla"});
 
-         await Q.delay(100);
+         await Promises.delay(1000);
 
          app.injector.get<Handler>(Handler).working.should.be.eq("bla");
 

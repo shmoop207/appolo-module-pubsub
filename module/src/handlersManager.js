@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.HandlersManager = void 0;
 const tslib_1 = require("tslib");
-const appolo_1 = require("appolo");
+const inject_1 = require("@appolo/inject");
 const _ = require("lodash");
 const decorators_1 = require("./decorators");
 let HandlersManager = class HandlersManager {
@@ -9,7 +10,7 @@ let HandlersManager = class HandlersManager {
         this._handlers = new Map();
     }
     async initialize() {
-        _.forEach(this.app.parent.exported, (item => this._createHandler(item.fn, item.define)));
+        _.forEach(this.app.tree.parent.discovery.exported, (item => this._createHandler(item.fn, item.define)));
         this.redisSub.redis.on("message", this._onMessage.bind(this));
     }
     _onMessage(channel, message) {
@@ -51,23 +52,23 @@ let HandlersManager = class HandlersManager {
     }
 };
 tslib_1.__decorate([
-    appolo_1.inject()
+    inject_1.inject()
 ], HandlersManager.prototype, "moduleOptions", void 0);
 tslib_1.__decorate([
-    appolo_1.inject()
+    inject_1.inject()
 ], HandlersManager.prototype, "injector", void 0);
 tslib_1.__decorate([
-    appolo_1.inject()
+    inject_1.inject()
 ], HandlersManager.prototype, "app", void 0);
 tslib_1.__decorate([
-    appolo_1.inject()
+    inject_1.inject()
 ], HandlersManager.prototype, "redisSub", void 0);
 tslib_1.__decorate([
-    appolo_1.inject()
+    inject_1.inject()
 ], HandlersManager.prototype, "logger", void 0);
 HandlersManager = tslib_1.__decorate([
-    appolo_1.define(),
-    appolo_1.singleton()
+    inject_1.define(),
+    inject_1.singleton()
 ], HandlersManager);
 exports.HandlersManager = HandlersManager;
 //# sourceMappingURL=handlersManager.js.map
