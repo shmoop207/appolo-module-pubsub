@@ -11,7 +11,7 @@
   ],
   "main": "index.js",
   "dependencies": {
-    "@appolo/logger": "^8.0.4",
+    "@appolo/logger": "^8.0.5",
     "@appolo/redis": "^8.0.0",
     "@appolo/core": "^8.0.5",
     "ioredis": "^4.19.2",
