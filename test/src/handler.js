@@ -10,11 +10,11 @@ let Handler = class Handler {
     }
 };
 tslib_1.__decorate([
-    index_1.handler("test")
+    (0, index_1.handler)("test")
 ], Handler.prototype, "handle", null);
 Handler = tslib_1.__decorate([
-    inject_1.define(),
-    inject_1.singleton()
+    (0, inject_1.define)(),
+    (0, inject_1.singleton)()
 ], Handler);
 exports.Handler = Handler;
 //# sourceMappingURL=handler.js.map

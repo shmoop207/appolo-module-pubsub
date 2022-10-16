@@ -1,4 +1,5 @@
 "use strict";
+const path = require("path");
 const redis_1 = require("@appolo/redis");
 const logger_1 = require("@appolo/logger");
 module.exports = async function (app, env, moduleOptions) {
@@ -11,6 +12,7 @@ module.exports = async function (app, env, moduleOptions) {
     }), redis_1.RedisModule.for({
         id: 'redisPub',
         connection: moduleOptions.connection,
+        scripts: [{ name: "publishRandomHost", args: 0, path: path.resolve(__dirname, "../../src/lua/publishRandomHost.lua") }]
     }));
 };
 //# sourceMappingURL=all.js.map

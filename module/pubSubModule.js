@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PubSubModule = void 0;
 const tslib_1 = require("tslib");
 const engine_1 = require("@appolo/engine");
-const pubSubProvider_1 = require("./src/pubSubProvider");
+const pubSubProvider_1 = require("./src/providers/pubSubProvider");
 let PubSubModule = PubSubModule_1 = class PubSubModule extends engine_1.Module {
     constructor() {
         super(...arguments);
@@ -23,7 +23,7 @@ let PubSubModule = PubSubModule_1 = class PubSubModule extends engine_1.Module {
     }
 };
 PubSubModule = PubSubModule_1 = tslib_1.__decorate([
-    engine_1.module()
+    (0, engine_1.module)()
 ], PubSubModule);
 exports.PubSubModule = PubSubModule;
 //# sourceMappingURL=pubSubModule.js.map

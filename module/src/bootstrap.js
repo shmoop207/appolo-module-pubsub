@@ -12,14 +12,14 @@ let Bootstrap = class Bootstrap {
     }
 };
 tslib_1.__decorate([
-    inject_1.inject()
+    (0, inject_1.inject)()
 ], Bootstrap.prototype, "moduleOptions", void 0);
 tslib_1.__decorate([
-    inject_1.inject()
+    (0, inject_1.inject)()
 ], Bootstrap.prototype, "pubSubProvider", void 0);
 Bootstrap = tslib_1.__decorate([
-    inject_1.define(),
-    engine_1.bootstrap()
+    (0, inject_1.define)(),
+    (0, engine_1.bootstrap)()
 ], Bootstrap);
 exports.Bootstrap = Bootstrap;
 //# sourceMappingURL=bootstrap.js.map
